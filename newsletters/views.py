@@ -15,18 +15,18 @@ def newsletter_signup(request):
             instance.save()
 
     context = {
-        'form' : form,
+        "form" : form,
     }    
- 
-    template = "newsletters/sign_up.html"
-    return render(request, template, context)
 
+    template = "newsletters/subscribe.html"
+    return render(request, template, context)
+    
 
 def newsletter_unsubscribe(request):
     form = NewsletterSignUpForm(request.POST or None)
 
     if form.is_valid():
-        instance = form.save(commit.POST or None)
+        instance = form.save(commit=False)
         if NewsletterUser.objects.filter(email=instance.email).exists():
             NewsletterUser.objects.filter(email=instance.email).delete()
     else:
